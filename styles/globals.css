@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@tailwind base;
+/* @import 'additional-styles/utility-patterns.scss'; */
+
+@layer base {
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  h1 {
+    @apply text-4xl font-extrabold leading-tight tracking-tighter;
+  }
+
+  h2 {
+    @apply text-3xl font-extrabold leading-tight tracking-tighter;
+  }
+
+  h3 {
+    @apply text-3xl font-bold leading-tight;
+  }
+
+  h4 {
+    @apply text-2xl font-bold leading-snug tracking-tight;
+  }
+
+  p {
+    @apply font-body text-base;
+  }
+  @screen md {
+    h1 {
+      @apply text-5xl;
+    }
+
+    h2 {
+      @apply text-4xl;
+    }
+  }
+}
+
+@tailwind components;
+
+@layer components {
+  /* Buttons */
+  .btn,
+  .btn-sm {
+    @apply font-medium inline-flex items-center justify-center border border-transparent rounded leading-snug transition duration-150 ease-in-out;
+  }
+
+  .btn {
+    @apply px-8 py-3 shadow-lg;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 shadow;
+  }
+
+  /* Forms */
+  .form-input,
+  .form-textarea,
+  .form-multiselect,
+  .form-select,
+  .form-checkbox,
+  .form-radio {
+    @apply bg-white border border-gray-300 focus:border-gray-500;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-multiselect,
+  .form-select,
+  .form-checkbox {
+    @apply rounded;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-multiselect,
+  .form-select {
+    @apply py-3 px-4;
+  }
+
+  .form-input,
+  .form-textarea {
+    @apply placeholder-gray-500;
+  }
+
+  .form-select {
+    @apply pr-10;
+  }
+
+  .form-checkbox,
+  .form-radio {
+    @apply text-gray-800 rounded-sm;
+  }
+}
+
+@tailwind utilities;
+
+@layer utilities {
+  .text-gradient-hrl {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-darker;
+  }
+  .text-gradient-nyush {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-nyush-violet to-nyush-red;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-multiselect,
+  .form-select,
+  .form-checkbox,
+  .form-radio {
+    &:focus {
+      @apply ring-0;
+    }
+  }
+  /* Pulsing animation */
+  @keyframes pulseLoop {
+    0% {
+      opacity: 0.15;
+      transform: scale(1) translateZ(0);
+    }
+    30% {
+      opacity: 0.15;
+    }
+    60% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+      transform: scale(1.8) translateZ(0);
+    }
+  }
+  @keyframes pulseMiniLoop {
+    0% {
+      opacity: 0;
+      transform: scale(1) translateZ(0);
+    }
+    30% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    80% {
+      opacity: 0;
+      transform: scale(3) translateZ(0);
+    }
+  }
+  .pulse {
+    transform: scale(1);
+    opacity: 0;
+    transform-origin: center;
+    animation: pulseLoop 10000ms linear infinite;
+  }
+  .pulse-mini {
+    animation: pulseMiniLoop 6000ms linear infinite;
+  }
+  .pulse-1 {
+    animation-delay: -3000ms;
+  }
+  .pulse-2 {
+    animation-delay: -6000ms;
+  }
+
+  /* Animations delay */
+  .animation-delay-500 {
+    animation-delay: 500ms !important;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1000ms !important;
+  }
+
+  .translate-z-0 {
+    transform: translateZ(0);
+  }
+
+  /* Custom AOS animations */
+  [data-aos='zoom-y-out'] {
+    transform: scaleX(1.03);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+}
