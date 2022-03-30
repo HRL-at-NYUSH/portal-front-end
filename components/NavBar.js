@@ -30,6 +30,16 @@ const NavBar = () => {
             </a>
           </Link>
         ))}
+        <Link href='login'>
+          <a
+            className={`btn p-3 ml-4 bg-accent hover:bg-accent-darker text-white
+        
+           `}
+          >
+            Login
+          </a>
+        </Link>
+        <div className=''></div>
       </div>
 
       <MobileNav currentPath={currentPath} />
