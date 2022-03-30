@@ -48,7 +48,7 @@ const Home = () => {
               <div>
                 <a
                   className='btn text-white bg-accent hover:bg-accent-darker w-full sm:w-auto sm:ml-4 shadow-sm'
-                  href='#0'
+                  href='#main-content'
                 >
                   Learn more
                 </a>
@@ -59,7 +59,10 @@ const Home = () => {
       </section>
 
       {/* What is HRL */}
-      <section className='relative px-8 pb-12 md:pt-2 md:pb-20 bg-gray-100 2333333'>
+      <section
+        id='main-content'
+        className='relative px-8 pb-12 md:pt-2 md:pb-20 bg-gray-100'
+      >
         {/* Section background (needs .relative class on parent and next sibling elements) */}
         {/* <div
           className='absolute inset-0 bg-gray-300 pointer-events-none 2333333'
