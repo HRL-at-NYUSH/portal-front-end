@@ -36,7 +36,7 @@ const GraphTest = () => {
         setAllVariables(data);
         setLoadingAllVariables(false);
       });
-    fetch(SERVER_HOST + '/graphTypes')
+    fetch(SERVER_HOST + '/graph-types')
       .then((res) => res.json())
       .then((data) => {
         setAllGraphTypes(data);
