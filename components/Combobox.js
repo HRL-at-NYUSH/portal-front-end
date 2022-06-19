@@ -13,7 +13,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 //   },...
 // ];
 
-function MyCombobox({ passSelected, options }) {
+function MyCombobox({ onItemSelected, options }) {
   // if options does is not formatted like aboce
 
   if (Array.isArray(options)) {
@@ -23,14 +23,19 @@ function MyCombobox({ passSelected, options }) {
     }
   }
 
+  // select the first option by default
   const [selected, setSelected] = useState(options[0]);
   const [query, setQuery] = useState('');
-  passSelected(selected);
+
+  // // pass the selected default option to parent
+  // useEffect(() => {
+  //   onItemSelected(selected);
+  // });
 
   // when currently selected change, pass selected data to parent
   useEffect(() => {
-    passSelected(selected);
-  }, [selected]);
+    onItemSelected(selected);
+  }, [selected, onItemSelected]);
 
   if (!options) {
     return <div>Loading...</div>;
