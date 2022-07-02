@@ -23,7 +23,7 @@ const parsePlotlyData = (data, graphConfig, dictionary) => {
 
       // if this group variable is codified
       if (group.name && dictionary[group.name] && dictionary[group.name].codes)
-        trace.name = dictionary[variable.name].codes[trace.name];
+        trace.name = dictionary[group.name].codes[trace.name];
 
       trace.type = 'bar';
     }
