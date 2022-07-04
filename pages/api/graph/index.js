@@ -12,20 +12,32 @@ export default function handler(req, res) {
   let params = { var: variable.name };
   if (group && group.name) params['group'] = group.name;
 
+  let filterParams = '';
   if (filters && filters.length > 0) {
     filters.forEach((filter) => {
       if (filter.cardinalities.length === 0) return;
       const variable = filter.name;
       const range = filter.cardinalities;
-      params[variable] = range.toString();
+      range.forEach((r) => {
+        filterParams += `&${variable}=${r}`;
+      });
+      // params[variable] = range.toString();
     });
   }
 
   console.log(
-    SERVER_HOST + `/${graphType.route}?` + new URLSearchParams(params)
+    SERVER_HOST +
+      `/${graphType.route}?` +
+      new URLSearchParams(params) +
+      filterParams
   );
   if (req.method === 'POST') {
-    fetch(SERVER_HOST + `/${graphType.route}?` + new URLSearchParams(params))
+    fetch(
+      SERVER_HOST +
+        `/${graphType.route}?` +
+        new URLSearchParams(params) +
+        filterParams
+    )
       .then((r) => r.json())
       .then((data) => res.status(200).json(data));
   } else {
