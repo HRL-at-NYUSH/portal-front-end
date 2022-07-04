@@ -1,14 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
-import MyCombobox from '@/components/Combobox';
-import GraphFilter from './GraphFilter';
+import ComboBox from '@/components/Combobox';
+import GraphFilterList from './graphFilterList';
 
-const GraphConfigurator = ({ onChange, onCreateGraph }) => {
+const GraphConfigurator = ({ onChange, onCreateGraph, dictionary }) => {
   // to store all available options fetched from server
   const [graphOptions, setGraphOptions] = useState({
     allGraphTypes: null,
     eligibleVariables: null,
     eligibleFilters: null,
-    varDict: null,
   });
 
   // to store user input selections
@@ -24,29 +23,6 @@ const GraphConfigurator = ({ onChange, onCreateGraph }) => {
       group: selectedGroup,
       filters: selectedFilters,
     };
-  };
-
-  const addFilter = () => {
-    const num = selectedFilters.length;
-    const newFilter = {
-      name: graphOptions.eligibleFilters[num],
-      range: [],
-    };
-    let newFilters = [...selectedFilters, newFilter];
-    setSelectedFilters(newFilters);
-  };
-
-  const removeFilter = (filterIndex) => {
-    const newFilters = filters.filter((_, index) => index !== filterIndex);
-    setSelectedFilters(newFilters);
-  };
-
-  const updateFilter = (filterIndex, value) => {
-    const newFilter = value;
-    let newFilters = selectedFilters.map((filter, index) => {
-      return index === filterIndex ? newFilter : filter;
-    });
-    setSelectedFilters(newFilters);
   };
 
   // load available graph types when mounted
@@ -96,10 +72,10 @@ const GraphConfigurator = ({ onChange, onCreateGraph }) => {
 
       {/* when graph types are fetched, provide selectbox */}
       {graphOptions.allGraphTypes && (
-        <div>
-          <h4>Graph Type</h4>
-          <div className='py-4'>
-            <MyCombobox
+        <div className='flex py-4'>
+          <div className='font-bold my-auto w-36'>Graph Type</div>
+          <div className='m-auto'>
+            <ComboBox
               onItemSelected={setSelectedGraphType}
               options={graphOptions.allGraphTypes}
             />
@@ -109,10 +85,10 @@ const GraphConfigurator = ({ onChange, onCreateGraph }) => {
 
       {/* when eligible variables are fetched, provide selectbox */}
       {graphOptions.eligibleVariables && (
-        <div>
-          <h4>X Variable</h4>
-          <div className='py-4'>
-            <MyCombobox
+        <div className='flex py-4'>
+          <div className='font-bold my-auto w-36'>Main Variable</div>
+          <div className='m-auto'>
+            <ComboBox
               onItemSelected={setSelectedVariable}
               options={graphOptions.eligibleVariables}
             />
@@ -120,17 +96,13 @@ const GraphConfigurator = ({ onChange, onCreateGraph }) => {
         </div>
       )}
 
-      {/* {graphOptions.eligibleVariables && (
-        <div className='btn' onClick={onCreateGraph}>
-          Create Graph
-        </div>
-      )} */}
-
+      {/* grouping */}
+      <hr className='my-4'></hr>
       {graphOptions.eligibleFilters && (
-        <div>
-          <h4>Grouping</h4>
-          <div className='py-4'>
-            <MyCombobox
+        <div className='flex py-4'>
+          <div className='font-bold my-auto w-36'>Grouping</div>
+          <div className='m-auto'>
+            <ComboBox
               onItemSelected={setSelectedGroup}
               options={graphOptions.eligibleFilters}
             />
@@ -138,27 +110,37 @@ const GraphConfigurator = ({ onChange, onCreateGraph }) => {
         </div>
       )}
 
-      {graphOptions.eligibleFilters &&
+      {/* filtering */}
+      {/* {graphOptions.eligibleFilters &&
         selectedFilters.map((filter, i) => (
-          <div key={i}>
-            <h4>Filter {i + 1}</h4>
-            <h4>{filter.name}</h4>
-            <div className='py-4'>
-              <MyCombobox
-                onItemSelected={(e) => {
-                  updateFilter(i, e);
-                }}
+          <div className='flex py-4' key={i}>
+            <div className='font-bold my-auto w-36'>Filter {i + 1}</div>
+            <div className='m-auto'>
+              <ComboBox
+                onItemSelected={setSelectedGroup}
+                options={graphOptions.eligibleFilters}
+              />
+            </div>
+            <div className='m-auto'>
+              <ComboBox
+                onItemSelected={setSelectedGroup}
                 options={graphOptions.eligibleFilters}
               />
             </div>
           </div>
-        ))}
+        ))} */}
 
       {graphOptions.eligibleFilters && (
-        <div className='btn' onClick={addFilter}>
-          Add Filter
-        </div>
+        <GraphFilterList
+          eligibleFilters={graphOptions.eligibleFilters}
+          filters={selectedFilters}
+          setFilters={setSelectedFilters}
+          dictionary={dictionary}
+        ></GraphFilterList>
       )}
+
+      <hr className='my-4'></hr>
+
       <div className='btn' onClick={() => onCreateGraph(getGraphConfig())}>
         Create Graph
       </div>

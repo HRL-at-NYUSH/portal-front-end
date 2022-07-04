@@ -28,16 +28,16 @@ const GraphApiTest = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('raw response from backend', data);
         data = parsePlotlyData(data, graphConfig, dictionary);
         let title = `${graphType.name}: ${variable.name}`;
-        if (group.name) title += ` - Grouped by ${group.name}`;
+        if (group && group.name) title += ` - Grouped by ${group.name}`;
         setGraphLayout({
           ...graphLayout,
           title: title,
         });
         setGraphData(data);
-        console.log(data);
+        console.log('parsed data for plotly', data);
       });
   };
 
@@ -60,13 +60,17 @@ const GraphApiTest = () => {
         </div>
       </section>
 
-      <section className='grid grid-cols-12 max-w-6xl m-auto min-h-max mb-64'>
+      <section className='grid grid-cols-12 max-w-7xl mx-auto min-h-max mb-64'>
         {/* sidebar control */}
         <div className='col-span-4'>
-          <GraphConfigurator onCreateGraph={onCreateGraph}></GraphConfigurator>
+          <GraphConfigurator
+            onCreateGraph={onCreateGraph}
+            dictionary={dictionary}
+          ></GraphConfigurator>
         </div>
-        <div className='col-span-8'>
+        <div className='col-span-8 w-full'>
           <Plot
+            className='w-full'
             data={graphData ? graphData : null}
             layout={graphLayout}
             config={{ responsive: true }}

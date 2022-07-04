@@ -1,3 +1,4 @@
+// request graph after parsing the graph configs into http request
 export default function handler(req, res) {
   const SERVER_HOST = process.env.SERVER_HOST;
 
@@ -13,9 +14,10 @@ export default function handler(req, res) {
 
   if (filters && filters.length > 0) {
     filters.forEach((filter) => {
+      if (filter.cardinalities.length === 0) return;
       const variable = filter.name;
-      const range = filter.range;
-      params[variable] = range;
+      const range = filter.cardinalities;
+      params[variable] = range.toString();
     });
   }
 
