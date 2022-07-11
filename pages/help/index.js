@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-
-import datasets from '@/data/data-report';
+import FaqTabs from '@/components/FaqTab';
+import QuestionTabs from '@/components/QuestionTab';
+import { Sections } from '@/data/FAQ';
 
 const Faq = () => {
   return (
@@ -159,8 +158,26 @@ const DataReport = () => {
             Frequently Asked Questions
           </h1>
         </div>
+        <div className='text-center pb-12 md:pb-16 '>
+          <FaqTabs>
+          {/* ALL FAQ tab content */}
+          {Sections.map((Sections) => ( 
+            <div label={Sections.lable}>
+            <div className='grid grid-cols-1 divide-y divide-gray-100'>
+              <div className='w-full mx-6 divide-y divide-gray-500'>
+                {Sections.content.map((Sections) => (
+                  <QuestionTabs
+                    question={Sections.question}
+                    answer={Sections.answer}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          ))}
+          </FaqTabs>  
+        </div>
       </section>
-      <Faq></Faq>
     </div>
   );
 };
