@@ -1,6 +1,7 @@
 const datasets = [
-  { name: 'US Census', id: 'us-census', image: '' },
-  { name: 'US Census #2', id: 'us-census-2', image: '' },
+  { name: 'US Census', id: 'Us Census', image: '' },
+  { name: 'US Census #2', id: 'Us Census 2', image: '' },
 ];
 
 export default datasets;
+
