@@ -9,6 +9,8 @@ import AOS from 'aos';
 
 import LayoutWrapper from '@/components/LayoutWrapper';
 
+import { NextUIProvider } from '@nextui-org/react';
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
@@ -27,11 +29,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   }, [router.pathname]); // triggered on route change
 
   return (
-    <SessionProvider session={session}>
-      <LayoutWrapper>
-        <Component {...pageProps} />
-      </LayoutWrapper>
-    </SessionProvider>
+    <NextUIProvider>
+      <SessionProvider session={session}>
+        <LayoutWrapper>
+          <Component {...pageProps} />
+        </LayoutWrapper>
+      </SessionProvider>
+    </NextUIProvider>
   );
 }
 

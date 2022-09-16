@@ -9,21 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.5.0",
+    "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
+    "@nextui-org/react": "^1.0.0-beta.9",
     "aos": "^2.3.4",
     "cors": "^2.8.5",
-    "plotly.js": "^2.11.1",
-    "react-plotly.js": "^2.5.1",
-    "swr": "^1.2.2",
     "next": "^12.1.0",
-    "next-auth": "^4.7.0",
+    "next-auth": "^4.10.2",
+    "plotly.js": "^2.11.1",
     "postcss-import": "^14.0.2",
     "react": "^17.0.2",
     "react-data-table-component": "^7.5.2",
     "react-dom": "^17.0.2",
+    "react-plotly.js": "^2.5.1",
     "react-router-dom": "^6.3.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",

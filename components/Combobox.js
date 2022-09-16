@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { Tooltip } from "@nextui-org/react";
 
 // const options = [
 //   {
@@ -51,36 +52,47 @@ function ComboBox({ onItemSelected, options, selectedItem }) {
   const isOutOfScope = () => {
     if (!selected) return false;
     const match = options.filter((o) => o.name === selected.name);
-    if (match.length === 0) return true;
+    // console.log(selected.name)
+    if (match.length === 0 && selected.name !== undefined) return true;
     return false;
   };
 
   return (
     <Combobox value={selected} onChange={setSelected}>
-      <div className='relative mt-1'>
-        <div className='relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-teal-300 focus-visible:ring-offset-2 sm:text-sm overflow-hidden'>
+      <div className='relative items-center'>
+        {/* <div className="relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-default focus:ring-1 focus:ring-accent-darker transition ease-in-out duration-150 sm:text-sm"> */}
+        {isOutOfScope() ?
+          <Tooltip content={"The variable is not valid"} contentColor='error'>
+            <Combobox.Input
+              className={`w-full bg-white border border-pink-600 focus:ring-0 focus:border-accent-darker pl-3 pr-10 py-3 rounded-md shadow-sm text-base leading-5 text-gray-900`}
+              placeholder="choose variables..."
+              displayValue={(option) => option.name}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </Tooltip>
+          : 
           <Combobox.Input
-            className={`w-full border-none focus:ring-0 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 ${
-              isOutOfScope() && 'bg-red-300'
-            }`}
+            className={`w-full bg-white border border-gray-300 focus:ring-0 focus:border-accent-darker pl-3 pr-10 py-3 rounded-md shadow-sm text-base leading-5 text-gray-900`}
+            placeholder="choose variables..."
             displayValue={(option) => option.name}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
+        }
+          <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2 '>
             <SelectorIcon
               className='w-5 h-5 text-gray-400'
               aria-hidden='true'
             />
           </Combobox.Button>
-        </div>
+        {/* </div> */}
         <Transition
           as={Fragment}
           leave='transition ease-in duration-100'
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
           afterLeave={() => setQuery('')}
-        >
-          <Combobox.Options className='z-50 absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
+         >                             
+          <Combobox.Options className='z-50 absolute w-full max-h-60 ml-0 mt-1 bg-white rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'>
             {filteredOptions.length === 0 && query !== '' ? (
               <div className='cursor-default select-none relative py-2 px-4 text-gray-700'>
                 Nothing found.

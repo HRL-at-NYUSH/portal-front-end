@@ -65,7 +65,7 @@ const MultiSelect = ({ options, selectedItem, onItemSelected }) => {
               <div className='relative'>
                 <span className='inline-block w-full rounded-md shadow-sm'>
                   <button
-                    className='cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5'
+                    className='cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-16 py-3 items-center text-left focus:outline-none focus:border-accent-darker transition ease-in-out duration-150 sm:text-sm sm:leading-5'
                     onClick={() => {
                       setIsOpen(!isOpen);
                     }}
@@ -104,7 +104,7 @@ const MultiSelect = ({ options, selectedItem, onItemSelected }) => {
                 >
                   <Listbox.Options
                     static
-                    className='max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'
+                    className='max-h-60 m-0 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'
                   >
                     {options.map((option) => {
                       const selected = isSelected(option);
